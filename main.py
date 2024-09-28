@@ -1,13 +1,4 @@
-class Human:
-    def __init__(self, name, surname, age):
-        self.name = name
-        self.surname = surname
-        self.age = age
-    
-    def print(self):
-        print(name, surname, age) 
-    
-    
+import classes as c1 
 
 def Human_check_name():
     while True:
@@ -45,10 +36,9 @@ def Human_check_age():
         except Exception as e: 
             print(e)
 
-    h1 = Human(name, surname, age)
         
 
 name = Human_check_name()
 surname = Human_check_surname()
 age = Human_check_age()
-h1 = Human(name, surname, age)
+h1 = c1.Human(name, surname, age)
