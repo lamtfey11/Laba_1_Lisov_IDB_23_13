@@ -29,20 +29,24 @@ def main():
         main_human = input('Введите номер действия: ').strip()
 
         if main_human == '1':
-            print('Вы можете создать аккаунт гостя.')
-            key = 1
-            if len(list_Human) > 0:
-                print('Вы можете вернуться в один из аккаунтов по ID.')
-                print('Введите 1, если хотите создать новый гостевой аккаунт, или 2, если хотите вернуться: ')
-                key = input()
-            #встроенная
-            try:
-                if key != '1' and key != '2':
-                    raise Invalid_Key_1_2("Просим прощения, но стоит написать 1 или 2. Мы решаем вопрос для удобства, но пока просим следовать инструкции.")
-            except Invalid_Key_1_2 as e:
-                print(f"Ошибка: {e}")
-            
-        elif main_human == '2':
+            print('Напишите "New", если хотите создать новый гостевой аккаунт.', 'Напишите "Return", если хотите вернуться в старый гостевой аккаунт.', sep = '\n')
+            key = ''
+            flag = False
+            while flag != True:
+                key = input('Ввод: ')
+                try:
+                    if key != 'New' and key != 'Return':
+                        raise Invalid_Key_1_2("Просим прощения, но неправильный ввод. Просим следовать инстуркции, похже мы решим проблему.")
+                    else:
+                        flag = True
+                except Invalid_Key_1_2 as e:
+                    print(f"Ошибка: {e}")
+            if key == 'New':
+                print('New')
+            elif key == 'Return':
+                print('Return')
+             
+        #elif main_human == '2':
             
         #elif main_human == '3':
 
@@ -50,7 +54,7 @@ def main():
 
         #elif main_human == '5':
 
-        #elif main_human == '6':
+        elif main_human == '6':
             return 'end'
         else:
             print('Просим извинения, но такого номера действия не существует.')
