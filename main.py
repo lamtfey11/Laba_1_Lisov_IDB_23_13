@@ -1,4 +1,5 @@
-import classes as c1 
+from classes import Human, Guest
+
 
 def Human_check_name():
     while True:
@@ -36,9 +37,19 @@ def Human_check_age():
         except Exception as e: 
             print(e)
 
-        
 
 name = Human_check_name()
 surname = Human_check_surname()
 age = Human_check_age()
-h1 = c1.Human(name, surname, age)
+
+h = Human(name, surname, age)
+
+print(h.__str__())
+
+name = Human_check_name()
+h.set_name(name)
+h.get_name()
+
+
+
+
