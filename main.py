@@ -4,9 +4,9 @@ from classes import Human, Reader, School_Сhild, Student, Club_Member
 class Invalid_Key_1_2(Exception):
     pass
 
-def Human_job(ID, list_Human = []):
+def Human_job(ID, list_Human):
     index = int(ID[2:])
-    print(index)
+    
     print("Выберите вид файла, где будет храниться Ваша история, а именно json или xml.")
     file_json_xml = ''
     flag = False
@@ -51,7 +51,12 @@ def Human_job(ID, list_Human = []):
 
         if key == '1':
             handler.add_human(data, list_Human[index])
-        #elif key == '2':
+            handler.save_json(data, file_name)
+        elif key == '2':
+            h = ''
+            while h != ID:
+                h = input("Введите свой ID: ")
+            handler.delete_human(data, ID)
             
         
 

@@ -1,3 +1,20 @@
 {
-    "human": []
+    "humans": [
+        {
+            "name": "Matfey",
+            "ID": "H_0"
+        },
+        {
+            "name": "Kirill",
+            "ID": "H_1"
+        },
+        {
+            "name": "Jarik",
+            "ID": "H_2"
+        },
+        {
+            "name": "M",
+            "ID": "H_0"
+        }
+    ]
 }
