@@ -36,7 +36,7 @@ def Human_job(ID, list_Human):
     print('Гость имеет такие функции:')
     while key != '3':
         print('1. Взять книгу для чтения в зале.')
-        print('2. Удалить историю.')
+        print('2. Удалить свою историю.')
         print('3. Выйти в меню.')
         flag = False
         while flag != True:
@@ -53,9 +53,6 @@ def Human_job(ID, list_Human):
             handler.add_human(data, list_Human[index])
             handler.save_json(data, file_name)
         elif key == '2':
-            h = ''
-            while h != ID:
-                h = input("Введите свой ID: ")
             handler.delete_human(data, ID)
             
         
