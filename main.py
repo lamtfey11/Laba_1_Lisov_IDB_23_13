@@ -3,6 +3,24 @@ from classes import Human, Reader, School_Сhild, Student, Club_Member
 class Invalid_Key_1_2(Exception):
     pass
 
+def Human_job(ID, list = []):
+    print('Выбери в какой "базе данных" будешь хранить свою историю: ')
+    print('1. json')
+    print('2. xml')
+    format_file = ''
+    flag = False
+    while flag != True:
+        format_file = input('Напиши 1 или 2: ')
+        try:
+            if format_file != '1' and format_file != '2':
+                raise Invalid_Key_1_2("Просим прощения, но неправильный ввод. Просим следовать инстуркции!")
+            else:
+                flag = True
+        except Invalid_Key_1_2 as e:
+            print(f"Ошибка: {e}")
+    
+
+
 def main():
     main_human = ''
     
@@ -39,7 +57,7 @@ def main():
                 
                 try:
                     if key != 'New' and key != 'Return':
-                        raise Invalid_Key_1_2("Просим прощения, но неправильный ввод. Просим следовать инстуркции, похже мы решим проблему.")
+                        raise Invalid_Key_1_2("Просим прощения, но неправильный ввод. Просим следовать инстуркции, позже мы решим проблему.")
                     else:
                         flag = True
                 except Invalid_Key_1_2 as e:
