@@ -6,11 +6,11 @@ class Invalid_Key_1_2(Exception):
 def main():
     main_human = ''
     
-    ID_1 = 'H_'
-    ID_2 = 'R_'
-    ID_3 = 'SC_'
-    ID_4 = 'S_'
-    ID_5 = 'CM_'
+    count_1 = -1
+    count_2 = -1
+    count_3 = -1
+    count_4 = -1
+    count_5 = -1
     list_Human = []
     list_Reader = []
     list_School_Сhild = []
@@ -30,10 +30,13 @@ def main():
 
         if main_human == '1':
             print('Напишите "New", если хотите создать новый гостевой аккаунт.', 'Напишите "Return", если хотите вернуться в старый гостевой аккаунт.', sep = '\n')
+            
             key = ''
             flag = False
+            
             while flag != True:
                 key = input('Ввод: ')
+                
                 try:
                     if key != 'New' and key != 'Return':
                         raise Invalid_Key_1_2("Просим прощения, но неправильный ввод. Просим следовать инстуркции, похже мы решим проблему.")
@@ -41,10 +44,36 @@ def main():
                         flag = True
                 except Invalid_Key_1_2 as e:
                     print(f"Ошибка: {e}")
-            if key == 'New':
-                print('New')
-            elif key == 'Return':
-                print('Return')
+            
+            while flag != False:
+                if key == 'New':
+                    print('Вы решили создать новый аккаунт.')
+
+                    count_1 += 1
+                    ID = 'H_' + str(count_1)
+                    print(f'Ваш ID: {ID}')
+                    name = input('Введите своё имя: ')
+                    list_Human.append(Human(name, ID))
+
+                    #обращение к функции
+
+                    flag = False
+                elif key == 'Return':
+                    print('Вы решили вернуться в старый аккаунт.')
+                    if len(list_Human) == 0:
+                        key = 'New'
+                        print('Сейчас вы будете создавать новый аакаунт, так как старых ещё не было.')
+                    else:
+                        for i in range(len(list_Human)):
+                            print(list_Human[i].count, sep = ' ')
+                        index = input('Введите номер ID: H_')
+                        
+                        #обращение к функции 
+                        flag = False
+
+
+
+
              
         #elif main_human == '2':
             

@@ -1,8 +1,11 @@
 #человек
 class Human:
-    def _init_(self, name, count):
+    def __init__(self, name, count):
         self.name = name
         self.count = count
+
+    def print(self):
+        print(f'Имя гостя {self.name} и его ID: {self.count}')
 
 #читатель
 class Reader(Human):
