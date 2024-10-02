@@ -6,14 +6,11 @@ def save_json(data, filename):
 
 #создаёт ячейки по кодовым словам
 def start_json(file_name):
-    try:
-        with open(file_name, 'r', encoding='utf-8') as f:
-            return json.load(f)
-    except FileNotFoundError:
-        return {'human': []}
+    with open(file_name, 'r', encoding='utf-8') as f:
+        return json.load(f)
 
-def add_human(data, movie):
-    data['human'].append(movie.to_dict())
+def add_human(data, human):
+    data['human'].append(human.back_to_file())
 
 def delete_movie(data, title):
     data['movies'] = [movie for movie in data['movies'] if movie['title'] != title]

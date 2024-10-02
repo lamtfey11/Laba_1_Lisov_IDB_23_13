@@ -4,7 +4,9 @@ from classes import Human, Reader, School_Сhild, Student, Club_Member
 class Invalid_Key_1_2(Exception):
     pass
 
-def Human_job(ID, list = []):
+def Human_job(ID, list_Human = []):
+    index = int(ID[2:])
+    print(index)
     print("Выберите вид файла, где будет храниться Ваша история, а именно json или xml.")
     file_json_xml = ''
     flag = False
@@ -30,7 +32,29 @@ def Human_job(ID, list = []):
         #data = xml_.load_from_xml(filename)
         #handler = xml_
     
-    print('End')
+    key = ''
+    print('Гость имеет такие функции:')
+    while key != '3':
+        print('1. Взять книгу для чтения в зале.')
+        print('2. Удалить историю.')
+        print('3. Выйти в меню.')
+        flag = False
+        while flag != True:
+            key = input('Введите 1, 2 или 3: ')
+            try:
+                if key != '1' and key != '2' and key != '3':
+                    raise Invalid_Key_1_2("Просим прощения, но неправильный ввод. Просим следовать инстуркции!")
+                else:
+                    flag = True
+            except Invalid_Key_1_2 as e:
+                print(f"Ошибка: {e}")
+
+        if key == '1':
+            handler.add_human(data, list_Human[index])
+        #elif key == '2':
+            
+        
+
 
     
 
