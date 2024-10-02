@@ -1,35 +1,52 @@
 #человек
 class Human:
-    def __init__(self, name, count):
+    def __init__(self, name, ID):
         self.name = name
-        self.count = count
+        self.ID = ID
 
-    def print(self):
-        print(f'Имя гостя {self.name} и его ID: {self.count}')
+    def back_to_file(self):
+        return {
+            "name": self.name,
+            "ID": self.ID
+        }
 
 #читатель
 class Reader(Human):
-    def __init__(self, name, count, age):
-        super().__init__(name, count)  
+    def __init__(self, name, ID, age):
+        super().__init__(name, ID)  
         self.age = age
 
+    def back_to_file(self):
+        reader = super().back_to_file() 
+        reader.update({
+            "age": self.age
+        })
+        return reader
+    
 #ученик школы
 class School_Сhild(Human):
-    def __init__(self, name, count, age, school):
-        super().__init__(name, count)  
+    def __init__(self, name, ID, age, school):
+        super().__init__(name, ID)  
         self.age = age
         self.school = school
 
+    def back_to_file(self):
+        reader = super().back_to_file() 
+        reader.update({
+            "age": self.age
+        })
+        return reader
+
 #студент вуза
 class Student(Human):
-    def __init__(self, name, count, age, university):
-        super().__init__(name, count)  
+    def __init__(self, name, ID, age, university):
+        super().__init__(name, ID)  
         self.age = age
         self.university = university
 
 #участник читательского клуба
 class Club_Member(Human):
-    def __init__(self, name, count, age, club):
-        super().__init__(name, count)  
+    def __init__(self, name, ID, age, club):
+        super().__init__(name, ID)  
         self.age = age
         self.club = club

@@ -1,24 +1,37 @@
-
+import json_job
 from classes import Human, Reader, School_Сhild, Student, Club_Member
 
 class Invalid_Key_1_2(Exception):
     pass
 
 def Human_job(ID, list = []):
-    print('Выбери в какой "базе данных" будешь хранить свою историю: ')
-    print('1. json')
-    print('2. xml')
-    format_file = ''
+    print("Выберите вид файла, где будет храниться Ваша история, а именно json или xml.")
+    file_json_xml = ''
     flag = False
+
     while flag != True:
-        format_file = input('Напиши 1 или 2: ')
+        file_json_xml = input('Ввод json или xml: ').lower()
         try:
-            if format_file != '1' and format_file != '2':
+            if file_json_xml != 'json' and file_json_xml != 'xml':
                 raise Invalid_Key_1_2("Просим прощения, но неправильный ввод. Просим следовать инстуркции!")
             else:
                 flag = True
         except Invalid_Key_1_2 as e:
             print(f"Ошибка: {e}")
+
+    #filename_json = 'data.json'
+    #filename_xml = 'data.xml'
+    if file_json_xml == 'json':
+        file_name = 'data.json'
+        data = json_job.start_json(file_name)
+        handler = json_job
+    #elif file_format == 'xml':
+        #filename = 'data.xml'
+        #data = xml_.load_from_xml(filename)
+        #handler = xml_
+    
+    print('End')
+
     
 
 
@@ -74,7 +87,7 @@ def main():
                     name = input('Введите своё имя: ')
                     list_Human.append(Human(name, ID))
 
-                    #обращение к функции
+                    Human_job(ID, list_Human)
 
                     flag = False
                 elif key == 'Return':
@@ -84,16 +97,13 @@ def main():
                         print('Сейчас вы будете создавать новый аакаунт, так как старых ещё не было.')
                     else:
                         for i in range(len(list_Human)):
-                            print(list_Human[i].count, sep = ' ')
+                            print(list_Human[i].ID, sep = ' ')
                         index = input('Введите номер ID: H_')
                         
-                        #обращение к функции 
+                        Human_job(index, list_Human)
+
                         flag = False
-
-
-
-
-             
+  
         #elif main_human == '2':
             
         #elif main_human == '3':
