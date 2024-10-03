@@ -1,12 +1,11 @@
 import xml_job
 import json_job
-
 from classes import Human, Reader, School_Сhild, Student, Club_Member
 
 class Invalid_Key_1_2(Exception):
     pass
 
-def Human_job(ID, list_Human):
+def Reader_job(ID, list_Reader):
     index = int(ID[2:])
     
     print("Выберите вид файла, где будет храниться Ваша история, а именно json или xml.")
@@ -63,9 +62,74 @@ def Human_job(ID, list_Human):
                 handler.save_to_xml(data, 'data.xml')
 
 
+def age_try():
+    flag = False
+    while flag != True:
+        age = int(input('Введите свой возраст: '))
+        try:
+            if 4 > age:
+                print('Вам меньше трёх лет.')
+            else:
+                flag = True
+        except Exception as e:
+            print(f"Ошибка: {e}")
+    return age
 
+def Human_job(ID, list_Human):
+    index = int(ID[2:])
     
+    print("Выберите вид файла, где будет храниться Ваша история, а именно json или xml.")
+    file_json_xml = ''
+    flag = False
 
+    while flag != True:
+        file_json_xml = input('Ввод json или xml: ').lower()
+        try:
+            if file_json_xml != 'json' and file_json_xml != 'xml':
+                raise Invalid_Key_1_2("Просим прощения, но неправильный ввод. Просим следовать инстуркции!")
+            else:
+                flag = True
+        except Invalid_Key_1_2 as e:
+            print(f"Ошибка: {e}")
+
+    if file_json_xml == 'json':
+        file_name = 'data.json'
+        data = json_job.start_json(file_name)
+        handler = json_job
+    elif file_json_xml == 'xml':
+        file_name = 'data.xml'
+        data = xml_job.start_xml(file_name)
+        handler = xml_job
+    
+    key = ''
+    print('Гость имеет такие функции:')
+    while key != '3':
+        print('1. Взять книгу для чтения в зале.')
+        print('2. Удалить свою историю.')
+        print('3. Выйти в меню.')
+        flag = False
+        while flag != True:
+            key = input('Введите 1, 2 или 3: ')
+            try:
+                if key != '1' and key != '2' and key != '3':
+                    raise Invalid_Key_1_2("Просим прощения, но неправильный ввод. Просим следовать инстуркции!")
+                else:
+                    flag = True
+            except Invalid_Key_1_2 as e:
+                print(f"Ошибка: {e}")
+
+        if key == '1':
+            handler.add_human(data, list_Human[index])
+            if file_json_xml == 'json':
+                handler.save_json(data, file_name)
+            else:
+                handler.save_to_xml(data, 'data.xml')
+        if key == '2':
+            handler.delete_human(data, ID)
+            if file_json_xml == 'json':
+                handler.save_json(data, file_name)
+            else:
+                handler.save_to_xml(data, 'data.xml')
 
 def main():
     main_human = ''
@@ -158,27 +222,28 @@ def main():
                 if key == 'New':
                     print('Вы решили создать новый аккаунт.')
 
-                    count_1 += 1
-                    ID = 'H_' + str(count_1)
+                    count_2 += 1
+                    ID = 'R_' + str(count_2)
                     print(f'Ваш ID: {ID}')
                     name = input('Введите своё имя: ')
-                    list_Human.append(Human(name, ID))
+                    age = age_try()
+                    list_Reader.append(Reader(name, ID, age))
 
-                    Human_job(ID, list_Human)
+                    Reader_job(ID, list_Reader)
 
                     flag = False
                 elif key == 'Return':
                     print('Вы решили вернуться в старый аккаунт.')
-                    if len(list_Human) == 0:
+                    if len(list_Reader) == 0:
                         key = 'New'
                         print('Сейчас вы будете создавать новый аакаунт, так как старых ещё не было.')
                     else:
-                        for i in range(len(list_Human)):
-                            print(list_Human[i].ID, sep = ' ')
-                        index = 'H_'
-                        index += input('Введите номер ID: H_')
+                        for i in range(len(list_Reader)):
+                            print(list_Reader[i].ID, sep = ' ')
+                        index = 'R_'
+                        index += input('Введите номер ID: R_')
                         
-                        Human_job(index, list_Human)
+                        Reader_job(index, list_Reader)
 
                         flag = False
   
