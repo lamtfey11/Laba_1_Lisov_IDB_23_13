@@ -41,3 +41,9 @@ def add_student_1(data, student):
 
 def delete_student(data, ID):
     data["students"] = [student for student in data["students"] if student['ID'] != ID]  
+
+def add_club(data, club):
+    data['clubs'].append(club.back_to_file())
+
+def delete_club(data, ID):
+    data["clubs"] = [club for club in data["clubs"] if club['ID'] != ID] 

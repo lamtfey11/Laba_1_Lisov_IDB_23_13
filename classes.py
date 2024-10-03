@@ -92,6 +92,7 @@ class Club_Member(Human):
         self.club = club
     
     def back_to_file(self):
+        self.status = 'Club'
         club_m = super().back_to_file() 
         club_m.update({
             "age": self.age,

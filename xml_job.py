@@ -45,6 +45,13 @@ def save_to_xml(data, file_name):
         for key, value in student.items():
             child = ET.SubElement(student_element, key)
             child.text = str(value)  
+    
+    clubs = ET.SubElement(root, 'clubs')
+    for club in data['clubs']:
+        club_element = ET.SubElement(clubs, 'clubs')
+        for key, value in club.items():
+            child = ET.SubElement(club_element, key)
+            child.text = str(value)  
 
     indent(root)
 
@@ -56,9 +63,9 @@ def start_xml(file_name):
         tree = ET.parse(file_name)
         root = tree.getroot()
     except FileNotFoundError:
-        return {"humans": [], "readers": [], "schools": [], "student": []}
+        return {"humans": [], "readers": [], "schools": [], "student": [], "clubs": []}
 
-    data = {"humans": [], "readers": [], "schools": [], "students": []}
+    data = {"humans": [], "readers": [], "schools": [], "students": [], "clubs": []}
 
     humans = root.find('humans')
     if humans is not None:
@@ -91,6 +98,14 @@ def start_xml(file_name):
             for elem in student:
                 data_s[elem.tag] = elem.text
             data['students'].append(data_s)
+
+    clubs = root.find('clubs')
+    if clubs is not None:
+        for club in clubs:
+            data_m = {}
+            for elem in club:
+                data_m[elem.tag] = elem.text
+            data['clubs'].append(data_m)
 
     return data
 
@@ -154,3 +169,15 @@ def delete_student(data, st):
             upd.append(student)
     
     data['students'] = upd
+
+def add_club(data, club):
+    data['clubs'].append(club.back_to_file())  
+    save_to_xml(data, 'data.xml')  
+
+def delete_club(data, m):
+    upd = []
+    for club in data['clubs']:
+        if club['ID'] != m:  
+            upd.append(club)
+    
+    data['clubs'] = upd

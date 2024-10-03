@@ -39,6 +39,8 @@ def age_try(ID):
                     flag = True
             except Exception as e:
                 print(f"Ошибка: {e}")
+    elif ID[0] == 'M':
+        age = int(input('Введите свой возраст: '))
     
     return age
 
@@ -114,14 +116,18 @@ def job(ID, list):
                 handler.delete_school(data, ID)
             elif ID[0] == 'S':
                 handler.delete_student(data, ID)
+            elif ID[0] == 'M':
+                handler.delete_club(data, ID)
 
             if file_json_xml == 'json':
                 handler.save_json(data, file_name)
             else:
                 handler.save_to_xml(data, 'data.xml')
         if key == '4':
-            
-
+            if ID[0] == 'M':
+                handler.add_club(data, list[index])
+            else:
+                print('Вы не можете пользоваться этой функцией.')
 
             if file_json_xml == 'json':
                 handler.save_json(data, file_name)
@@ -356,7 +362,53 @@ def main():
 
                         flag = False
 
-        #elif main_human == '5':
+        elif main_human == '5':
+            print('Напишите "New", если хотите создать клубный аккаунт.', 'Напишите "Return", если хотите вернуться в старый аккаунт.', sep = '\n')
+            
+            key = ''
+            flag = False
+            
+            while flag != True:
+                key = input('Ввод: ')
+                
+                try:
+                    if key != 'New' and key != 'Return':
+                        raise Invalid_Key_1_2("Просим прощения, но неправильный ввод. Просим следовать инстуркции, позже мы решим проблему.")
+                    else:
+                        flag = True
+                except Invalid_Key_1_2 as e:
+                    print(f"Ошибка: {e}")
+            
+            while flag != False:
+                if key == 'New':
+                    print('Вы решили создать новый аккаунт.')
+                    
+                    count_5 += 1
+                    ID = 'M_' + str(count_5)
+                    print(f'Ваш ID: {ID}')
+                    name = input('Введите своё имя: ')
+                    
+                    age = age_try(ID)
+                    club = input('Введите название клуба: ')
+                    list_Club_Member.append(Club_Member(name, ID, age, club))
+
+                    job(ID, list_Club_Member)
+
+                    flag = False
+                elif key == 'Return':
+                    print('Вы решили вернуться в старый аккаунт.')
+                    if len(list_Club_Member) == 0:
+                        key = 'New'
+                        print('Сейчас вы будете создавать новый аакаунт, так как старых ещё не было.')
+                    else:
+                        for i in range(len(list_Club_Member)):
+                            print(list_Club_Member[i].ID, sep = ' ')
+                        index = 'M_'
+                        index += input('Введите номер ID: M_')
+                        
+                        job(index, list_Club_Member)
+
+                        flag = False
 
         elif main_human == '6':
             return 'end'
