@@ -1,6 +1,5 @@
 import xml.etree.ElementTree as ET
 
-# Функция для добавления отступов (pretty-print)
 def indent(start, lenn = 0):
     i = "\n" + lenn * "  "
     if len(start):
@@ -26,7 +25,6 @@ def save_to_xml(data, file_name):
             child = ET.SubElement(human_element, key)
             child.text = str(value)  
 
-     
     indent(root)
 
     tree = ET.ElementTree(root)
@@ -34,7 +32,7 @@ def save_to_xml(data, file_name):
     #убрать!
     print(f"Данные успешно сохранены в файл '{file_name}'")
 
-def load_from_xml(file_name):
+def start_xml(file_name):
     try:
         tree = ET.parse(file_name)
         root = tree.getroot()
@@ -60,7 +58,7 @@ def load_from_xml(file_name):
 def add_human(data, human):
     data['humans'].append(human.back_to_file())
 
-def delete_movie(data, hu):
+def delete_human(data, hu):
     upd = []
     for human in data['humans']:
         if human['hu'] != hu:

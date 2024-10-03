@@ -1,5 +1,6 @@
-import json_job
 import xml_job
+import json_job
+
 from classes import Human, Reader, School_Сhild, Student, Club_Member
 
 class Invalid_Key_1_2(Exception):
@@ -27,8 +28,8 @@ def Human_job(ID, list_Human):
         data = json_job.start_json(file_name)
         handler = json_job
     elif file_json_xml == 'xml':
-        filename = 'data.xml'
-        data = xml_job.load_from_xml(filename)
+        file_name = 'data.xml'
+        data = xml_job.start_xml(file_name)
         handler = xml_job
     
     key = ''
@@ -50,8 +51,10 @@ def Human_job(ID, list_Human):
 
         if key == '1':
             handler.add_human(data, list_Human[index])
-            handler.save_json(data, file_name)
-            handler.save_to_xml(data, file_name)
+            if file_json_xml == 'json':
+                handler.save_json(data, file_name)
+            else:
+                handler.save_to_xml(data, file_name)
         elif key == '2':#НЕ РАБОТАЕТТТТТТ!!!!
             handler.delete_human(data, ID)
             handler.save_json(data, file_name)
@@ -124,7 +127,8 @@ def main():
                     else:
                         for i in range(len(list_Human)):
                             print(list_Human[i].ID, sep = ' ')
-                        index = input('Введите номер ID: H_')
+                        index = 'H_'
+                        index += input('Введите номер ID: H_')
                         
                         Human_job(index, list_Human)
 
