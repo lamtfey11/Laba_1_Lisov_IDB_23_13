@@ -5,17 +5,30 @@ from classes import Human, Reader, School_Сhild, Student, Club_Member
 class Invalid_Key_1_2(Exception):
     pass
 
-def age_try():
-    flag = False
-    while flag != True:
-        age = int(input('Введите свой возраст: '))
-        try:
-            if 4 > age:
-                print('Вам меньше трёх лет.')
-            else:
-                flag = True
-        except Exception as e:
-            print(f"Ошибка: {e}")
+def age_try(ID):
+    if ID[0] == 'R':
+        flag = False
+        while flag != True:
+            age = int(input('Введите свой возраст: '))
+            try:
+                if 4 > age:
+                    print('Вам меньше трёх лет.')
+                else:
+                    flag = True
+            except Exception as e:
+                print(f"Ошибка: {e}")
+    elif ID[0] == 'C':
+        flag = False
+        while flag != True:
+            age = int(input('Введите свой возраст: '))
+            try:
+                if age < 7 or age > 18:
+                    print('Школьником считается человек от 7 до 18.')
+                else:
+                    flag = True
+            except Exception as e:
+                print(f"Ошибка: {e}")
+    
     return age
 
 def job(ID, list):
@@ -56,6 +69,8 @@ def job(ID, list):
                 handler.add_human(data, list[index])
             elif ID[0] == 'R':
                 handler.add_reader(data, list[index])
+            elif ID[0] == 'C':
+                handler.add_school(data, list[index])
             else:
                 print('Вы не можете пользоваться этой функцией.')
 
@@ -66,6 +81,8 @@ def job(ID, list):
         if key == '2':
             if ID[0] == 'R':
                 handler.add_reader_1(data, list[index])
+            elif ID[0] == 'C':
+                handler.add_school_1(data, list[index])
             else:
                 print('Вы не можете пользоваться этой функцией.')
 
@@ -78,6 +95,8 @@ def job(ID, list):
                 handler.delete_human(data, ID)
             elif ID[0] == 'R':
                 handler.delete_reader(data, ID)
+            elif ID[0] == 'C':
+                handler.delete_school(data, ID)
             else:
                 print('Вы не можете пользоваться этой функцией.')
 
@@ -129,7 +148,7 @@ def main():
         print('Выбирите один из предоставленных вариантов, написав номер действия:')
         print('1. Гость(человек с ID на H_). Вы сможете брать книгу в зале.')
         print('2. Читатель(человек с ID на R_). Вы сможете брать книги в зале и дома.')
-        print('3. Ученик школы(человек с ID  на SC_). Вам должно быть от 6 до 18 лет и вы сможете брать книги с таким возрастным ограничением.')
+        print('3. Ученик школы(человек с ID  на C_). Вам должно быть от 6 до 18 лет и вы сможете брать книги с таким возрастным ограничением.')
         print('4. Студент вуза(человек с ID  на S_). Вам должно быть от 18 до 27 лет и вы сможете брать книги с таким возрастным ограничением.')
         print('5. Вы хотите быть участником литературного клуба(человек с ID CM_). Вы работаете только в зале.')
         print('6. Выход')
@@ -206,7 +225,7 @@ def main():
                     ID = 'R_' + str(count_2)
                     print(f'Ваш ID: {ID}')
                     name = input('Введите своё имя: ')
-                    age = age_try()
+                    age = age_try(ID)
                     list_Reader.append(Reader(name, ID, age))
 
                     job(ID, list_Reader)
@@ -227,7 +246,52 @@ def main():
 
                         flag = False
   
-        #elif main_human == '3':
+        elif main_human == '3':
+            print('Напишите "New", если хотите создать школьный аккаунт.', 'Напишите "Return", если хотите вернуться в старый аккаунт.', sep = '\n')
+            
+            key = ''
+            flag = False
+            
+            while flag != True:
+                key = input('Ввод: ')
+                
+                try:
+                    if key != 'New' and key != 'Return':
+                        raise Invalid_Key_1_2("Просим прощения, но неправильный ввод. Просим следовать инстуркции, позже мы решим проблему.")
+                    else:
+                        flag = True
+                except Invalid_Key_1_2 as e:
+                    print(f"Ошибка: {e}")
+            
+            while flag != False:
+                if key == 'New':
+                    print('Вы решили создать новый аккаунт.')
+                    
+                    count_3 += 1
+                    ID = 'C_' + str(count_3)
+                    print(f'Ваш ID: {ID}')
+                    name = input('Введите своё имя: ')
+                    age = age_try(ID)
+                    school = input('Введите место учёбы(школу): ')
+                    list_School_Сhild.append(School_Сhild(name, ID, age, school))
+
+                    job(ID, list_School_Сhild)
+
+                    flag = False
+                elif key == 'Return':
+                    print('Вы решили вернуться в старый аккаунт.')
+                    if len(list_School_Сhild) == 0:
+                        key = 'New'
+                        print('Сейчас вы будете создавать новый аакаунт, так как старых ещё не было.')
+                    else:
+                        for i in range(len(list_School_Сhild)):
+                            print(list_School_Сhild[i].ID, sep = ' ')
+                        index = 'C_'
+                        index += input('Введите номер ID: C_')
+                        
+                        job(index, list_Reader)
+
+                        flag = False
 
         #elif main_human == '4':
 

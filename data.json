@@ -1,18 +1,5 @@
 {
-    "humans": [
-        {
-            "name": "ssrjske",
-            "ID": "H_0",
-            "Status": "Book in Hool."
-        }
-    ],
-    "readers": [
-        {
-            "name": "sdjjsdksd",
-            "ID": "R_0",
-            "Status": "Hool",
-            "age": 56,
-            "status": "Hool"
-        }
-    ]
+    "humans": [],
+    "readers": [],
+    "schools": []
 }

@@ -17,14 +17,12 @@ class Reader(Human):
     def __init__(self, name, ID, age):
         super().__init__(name, ID)  
         self.age = age
-        self.status = ''
 
     def back_to_file(self):
         self.status = 'Hool'
         reader = super().back_to_file() 
         reader.update({
-            "age": self.age,
-            "status": self.status
+            "age": self.age
         })
         return reader
     
@@ -32,8 +30,7 @@ class Reader(Human):
         self.status = 'Home'
         reader = super().back_to_file() 
         reader.update({
-            "age": self.age,
-            "status": self.status
+            "age": self.age
         })
         return reader
     
@@ -45,6 +42,16 @@ class School_Сhild(Human):
         self.school = school
 
     def back_to_file(self):
+        self.status = 'Hool'
+        school_c = super().back_to_file() 
+        school_c.update({
+            "age": self.age,
+            "school": self.school
+        })
+        return school_c
+    
+    def back_to_file_1(self):
+        self.status = 'Home'
         school_c = super().back_to_file() 
         school_c.update({
             "age": self.age,

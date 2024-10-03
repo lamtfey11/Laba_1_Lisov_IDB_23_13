@@ -23,3 +23,12 @@ def add_reader_1(data, reader):
 
 def delete_reader(data, ID):
     data["readers"] = [reader for reader in data["readers"] if reader['ID'] != ID]  
+
+def add_school(data, school):
+    data['schools'].append(school.back_to_file())
+
+def add_school_1(data, school):
+    data['schools'].append(school.back_to_file_1())
+
+def delete_school(data, ID):
+    data["schools"] = [school for school in data["schools"] if school['ID'] != ID]  

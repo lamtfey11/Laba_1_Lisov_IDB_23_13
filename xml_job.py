@@ -32,21 +32,26 @@ def save_to_xml(data, file_name):
             child = ET.SubElement(reader_element, key)
             child.text = str(value)  
 
+    schools = ET.SubElement(root, 'schools')
+    for school in data['schools']:
+        school_element = ET.SubElement(schools, 'schools')
+        for key, value in school.items():
+            child = ET.SubElement(school_element, key)
+            child.text = str(value)  
+
     indent(root)
 
     tree = ET.ElementTree(root)
     tree.write(file_name, encoding='utf-8', xml_declaration=True)
-    #убрать!
-    print(f"Данные успешно сохранены в файл '{file_name}'")
 
 def start_xml(file_name):
     try:
         tree = ET.parse(file_name)
         root = tree.getroot()
     except FileNotFoundError:
-        return {"humans": [], "readers": []}
+        return {"humans": [], "readers": [], "schools": []}
 
-    data = {"humans": [], "readers": []}
+    data = {"humans": [], "readers": [], "schools": []}
 
     humans = root.find('humans')
     if humans is not None:
@@ -59,10 +64,18 @@ def start_xml(file_name):
     readers = root.find('readers')
     if readers is not None:
         for reader in readers:
-            data_h = {}
+            data_r = {}
             for elem in reader:
-                data_h[elem.tag] = elem.text
-            data['readers'].append(data_h)
+                data_r[elem.tag] = elem.text
+            data['readers'].append(data_r)
+
+    schools = root.find('schools')
+    if schools is not None:
+        for school in schools:
+            data_s = {}
+            for elem in school:
+                data_s[elem.tag] = elem.text
+            data['schools'].append(data_s)
 
     return data
 
@@ -84,14 +97,29 @@ def add_reader(data, reader):
     save_to_xml(data, 'data.xml')  
 
 def add_reader_1(data, reader):
-    data['readers'].append(reader.back_to_file())  
+    data['readers'].append(reader.back_to_file_1())  
     save_to_xml(data, 'data.xml')  
 
-def delete_reader(data, reader):
+def delete_reader(data, re):
     upd = []
     for reader in data['readers']:
-        if reader['ID'] != reader:  
+        if reader['ID'] != re:  
             upd.append(reader)
     
     data['readers'] = upd
 
+def add_school(data, school):
+    data['schools'].append(school.back_to_file())  
+    save_to_xml(data, 'data.xml')  
+
+def add_school_1(data, school):
+    data['schools'].append(school.back_to_file_1())  
+    save_to_xml(data, 'data.xml')  
+
+def delete_school(data, sc):
+    upd = []
+    for school in data['schools']:
+        if school['ID'] != sc:  
+            upd.append(school)
+    
+    data['schools'] = upd

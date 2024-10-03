@@ -6,31 +6,7 @@
       <ID>H_-1</ID>
       <status>Book</status>
     </human>
-    <human>
-      <name>fdjgfjjkg</name>
-      <ID>H_0</ID>
-      <Book_in_Holl.>None</Book_in_Holl.>
-    </human>
   </humans>
-  <readers>
-    <reader>
-      <name>Beta_test</name>
-      <ID>R_-1</ID>
-      <status>Book</status>
-    </reader>
-    <reader>
-      <name>sjksekkse</name>
-      <ID>R_1</ID>
-      <Status>Hool</Status>
-      <age>45</age>
-      <status>Hool</status>
-    </reader>
-    <reader>
-      <name>sjksekkse</name>
-      <ID>R_1</ID>
-      <Status>Hool</Status>
-      <age>45</age>
-      <status>Hool</status>
-    </reader>
-  </readers>
+  <readers />
+  <schools />
 </data>
