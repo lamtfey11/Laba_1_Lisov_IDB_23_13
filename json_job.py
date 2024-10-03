@@ -32,3 +32,12 @@ def add_school_1(data, school):
 
 def delete_school(data, ID):
     data["schools"] = [school for school in data["schools"] if school['ID'] != ID]  
+
+def add_student(data, student):
+    data['students'].append(student.back_to_file())
+
+def add_student_1(data, student):
+    data['students'].append(student.back_to_file_1())
+
+def delete_student(data, ID):
+    data["students"] = [student for student in data["students"] if student['ID'] != ID]  

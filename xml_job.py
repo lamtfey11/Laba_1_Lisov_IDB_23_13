@@ -38,6 +38,13 @@ def save_to_xml(data, file_name):
         for key, value in school.items():
             child = ET.SubElement(school_element, key)
             child.text = str(value)  
+    
+    students = ET.SubElement(root, 'students')
+    for student in data['students']:
+        student_element = ET.SubElement(students, 'students')
+        for key, value in student.items():
+            child = ET.SubElement(student_element, key)
+            child.text = str(value)  
 
     indent(root)
 
@@ -49,9 +56,9 @@ def start_xml(file_name):
         tree = ET.parse(file_name)
         root = tree.getroot()
     except FileNotFoundError:
-        return {"humans": [], "readers": [], "schools": []}
+        return {"humans": [], "readers": [], "schools": [], "student": []}
 
-    data = {"humans": [], "readers": [], "schools": []}
+    data = {"humans": [], "readers": [], "schools": [], "students": []}
 
     humans = root.find('humans')
     if humans is not None:
@@ -72,10 +79,18 @@ def start_xml(file_name):
     schools = root.find('schools')
     if schools is not None:
         for school in schools:
-            data_s = {}
+            data_c = {}
             for elem in school:
+                data_c[elem.tag] = elem.text
+            data['schools'].append(data_c)
+    
+    students = root.find('students')
+    if students is not None:
+        for student in students:
+            data_s = {}
+            for elem in student:
                 data_s[elem.tag] = elem.text
-            data['schools'].append(data_s)
+            data['students'].append(data_s)
 
     return data
 
@@ -123,3 +138,19 @@ def delete_school(data, sc):
             upd.append(school)
     
     data['schools'] = upd
+
+def add_student(data, student):
+    data['students'].append(student.back_to_file())  
+    save_to_xml(data, 'data.xml')  
+
+def add_student_1(data, student):
+    data['students'].append(student.back_to_file_1())  
+    save_to_xml(data, 'data.xml')  
+
+def delete_student(data, st):
+    upd = []
+    for student in data['students']:
+        if student['ID'] != st:  
+            upd.append(student)
+    
+    data['students'] = upd

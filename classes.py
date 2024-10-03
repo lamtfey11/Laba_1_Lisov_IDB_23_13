@@ -67,6 +67,16 @@ class Student(Human):
         self.university = university
 
     def back_to_file(self):
+        self.status = 'Hool'
+        student = super().back_to_file() 
+        student.update({
+            "age": self.age,
+            "university": self.university
+        })
+        return student
+    
+    def back_to_file_1(self):
+        self.status = 'Home'
         student = super().back_to_file() 
         student.update({
             "age": self.age,

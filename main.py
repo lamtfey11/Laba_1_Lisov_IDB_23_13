@@ -150,7 +150,7 @@ def main():
         print('2. Читатель(человек с ID на R_). Вы сможете брать книги в зале и дома.')
         print('3. Ученик школы(человек с ID  на C_). Вам должно быть от 6 до 18 лет и вы сможете брать книги с таким возрастным ограничением.')
         print('4. Студент вуза(человек с ID  на S_). Вам должно быть от 18 до 27 лет и вы сможете брать книги с таким возрастным ограничением.')
-        print('5. Вы хотите быть участником литературного клуба(человек с ID CM_). Вы работаете только в зале.')
+        print('5. Вы хотите быть участником литературного клуба(человек с ID M_). Вы работаете только в зале.')
         print('6. Выход')
         
         main_human = input('Введите номер действия: ').strip()
@@ -293,7 +293,53 @@ def main():
 
                         flag = False
 
-        #elif main_human == '4':
+        elif main_human == '4':
+            print('Напишите "New", если хотите создать студенческий аккаунт.', 'Напишите "Return", если хотите вернуться в старый аккаунт.', sep = '\n')
+            
+            key = ''
+            flag = False
+            
+            while flag != True:
+                key = input('Ввод: ')
+                
+                try:
+                    if key != 'New' and key != 'Return':
+                        raise Invalid_Key_1_2("Просим прощения, но неправильный ввод. Просим следовать инстуркции, позже мы решим проблему.")
+                    else:
+                        flag = True
+                except Invalid_Key_1_2 as e:
+                    print(f"Ошибка: {e}")
+            
+            while flag != False:
+                if key == 'New':
+                    print('Вы решили создать новый аккаунт.')
+                    
+                    count_4 += 1
+                    ID = 'S_' + str(count_4)
+                    print(f'Ваш ID: {ID}')
+                    name = input('Введите своё имя: ')
+                    #####################
+                    age = age_try(ID)
+                    school = input('Введите место учёбы(школу): ')
+                    list_School_Сhild.append(School_Сhild(name, ID, age, school))
+
+                    job(ID, list_School_Сhild)
+
+                    flag = False
+                elif key == 'Return':
+                    print('Вы решили вернуться в старый аккаунт.')
+                    if len(list_School_Сhild) == 0:
+                        key = 'New'
+                        print('Сейчас вы будете создавать новый аакаунт, так как старых ещё не было.')
+                    else:
+                        for i in range(len(list_School_Сhild)):
+                            print(list_School_Сhild[i].ID, sep = ' ')
+                        index = 'C_'
+                        index += input('Введите номер ID: C_')
+                        
+                        job(index, list_Reader)
+
+                        flag = False
 
         #elif main_human == '5':
 
