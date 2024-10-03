@@ -2,6 +2,21 @@
     "humans": [],
     "readers": [],
     "schools": [],
-    "students": [], 
-    "clubs": []
+    "students": [],
+    "clubs": [
+        {
+            "name": "Matfey",
+            "ID": "M_0",
+            "Status": "Club",
+            "age": 17,
+            "club": "jsdjdjd"
+        },
+        {
+            "name": "Matfey",
+            "ID": "M_0",
+            "Status": "Club",
+            "age": 17,
+            "club": "jsdjdjd"
+        }
+    ]
 }

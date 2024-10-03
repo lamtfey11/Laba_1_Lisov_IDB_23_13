@@ -6,7 +6,7 @@ class Invalid_Key_1_2(Exception):
     pass
 
 def age_try(ID):
-    if ID[0] == 'R':
+    if ID[0] == 'R' or ID[0] == 'M':
         flag = False
         while flag != True:
             age = int(input('Введите свой возраст: '))
@@ -39,8 +39,6 @@ def age_try(ID):
                     flag = True
             except Exception as e:
                 print(f"Ошибка: {e}")
-    elif ID[0] == 'M':
-        age = int(input('Введите свой возраст: '))
     
     return age
 
