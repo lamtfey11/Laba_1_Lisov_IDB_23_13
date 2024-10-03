@@ -51,6 +51,7 @@ def Human_job(ID, list_Human):
         if key == '1':
             handler.add_human(data, list_Human[index])
             handler.save_json(data, file_name)
+            handler.save_to_xml(data, file_name)
         elif key == '2':#НЕ РАБОТАЕТТТТТТ!!!!
             handler.delete_human(data, ID)
             handler.save_json(data, file_name)
