@@ -24,6 +24,13 @@ def save_to_xml(data, file_name):
         for key, value in human.items():
             child = ET.SubElement(human_element, key)
             child.text = str(value)  
+    
+    readers = ET.SubElement(root, 'readers')
+    for reader in data['readers']:
+        reader_element = ET.SubElement(readers, 'reader')
+        for key, value in reader.items():
+            child = ET.SubElement(reader_element, key)
+            child.text = str(value)  
 
     indent(root)
 
@@ -37,9 +44,9 @@ def start_xml(file_name):
         tree = ET.parse(file_name)
         root = tree.getroot()
     except FileNotFoundError:
-        return {"humans": []}
+        return {"humans": [], "readers": []}
 
-    data = {"humans": []}
+    data = {"humans": [], "readers": []}
 
     humans = root.find('humans')
     if humans is not None:
@@ -48,6 +55,14 @@ def start_xml(file_name):
             for elem in human:
                 data_h[elem.tag] = elem.text
             data['humans'].append(data_h)
+
+    readers = root.find('readers')
+    if readers is not None:
+        for reader in readers:
+            data_h = {}
+            for elem in reader:
+                data_h[elem.tag] = elem.text
+            data['readers'].append(data_h)
 
     return data
 
@@ -63,3 +78,20 @@ def delete_human(data, hu):
             upd.append(human)
     
     data['humans'] = upd
+
+def add_reader(data, reader):
+    data['readers'].append(reader.back_to_file())  
+    save_to_xml(data, 'data.xml')  
+
+def add_reader_1(data, reader):
+    data['readers'].append(reader.back_to_file())  
+    save_to_xml(data, 'data.xml')  
+
+def delete_reader(data, reader):
+    upd = []
+    for reader in data['readers']:
+        if reader['ID'] != reader:  
+            upd.append(reader)
+    
+    data['readers'] = upd
+

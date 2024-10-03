@@ -17,11 +17,23 @@ class Reader(Human):
     def __init__(self, name, ID, age):
         super().__init__(name, ID)  
         self.age = age
+        self.status = ''
 
     def back_to_file(self):
+        self.status = 'Hool'
         reader = super().back_to_file() 
         reader.update({
-            "age": self.age
+            "age": self.age,
+            "status": self.status
+        })
+        return reader
+    
+    def back_to_file_1(self):
+        self.status = 'Home'
+        reader = super().back_to_file() 
+        reader.update({
+            "age": self.age,
+            "status": self.status
         })
         return reader
     

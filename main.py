@@ -5,63 +5,6 @@ from classes import Human, Reader, School_Сhild, Student, Club_Member
 class Invalid_Key_1_2(Exception):
     pass
 
-def Reader_job(ID, list_Reader):
-    index = int(ID[2:])
-    
-    print("Выберите вид файла, где будет храниться Ваша история, а именно json или xml.")
-    file_json_xml = ''
-    flag = False
-
-    while flag != True:
-        file_json_xml = input('Ввод json или xml: ').lower()
-        try:
-            if file_json_xml != 'json' and file_json_xml != 'xml':
-                raise Invalid_Key_1_2("Просим прощения, но неправильный ввод. Просим следовать инстуркции!")
-            else:
-                flag = True
-        except Invalid_Key_1_2 as e:
-            print(f"Ошибка: {e}")
-
-    if file_json_xml == 'json':
-        file_name = 'data.json'
-        data = json_job.start_json(file_name)
-        handler = json_job
-    elif file_json_xml == 'xml':
-        file_name = 'data.xml'
-        data = xml_job.start_xml(file_name)
-        handler = xml_job
-    
-    key = ''
-    print('Гость имеет такие функции:')
-    while key != '3':
-        print('1. Взять книгу для чтения в зале.')
-        print('2. Удалить свою историю.')
-        print('3. Выйти в меню.')
-        flag = False
-        while flag != True:
-            key = input('Введите 1, 2 или 3: ')
-            try:
-                if key != '1' and key != '2' and key != '3':
-                    raise Invalid_Key_1_2("Просим прощения, но неправильный ввод. Просим следовать инстуркции!")
-                else:
-                    flag = True
-            except Invalid_Key_1_2 as e:
-                print(f"Ошибка: {e}")
-
-        if key == '1':
-            handler.add_human(data, list_Human[index])
-            if file_json_xml == 'json':
-                handler.save_json(data, file_name)
-            else:
-                handler.save_to_xml(data, 'data.xml')
-        if key == '2':
-            handler.delete_human(data, ID)
-            if file_json_xml == 'json':
-                handler.save_json(data, file_name)
-            else:
-                handler.save_to_xml(data, 'data.xml')
-
-
 def age_try():
     flag = False
     while flag != True:
@@ -75,9 +18,83 @@ def age_try():
             print(f"Ошибка: {e}")
     return age
 
-def Human_job(ID, list_Human):
+def job(ID, list):
     index = int(ID[2:])
     
+    file_json_xml = file_name_xml_json()
+
+    if file_json_xml == 'json':
+        file_name = 'data.json'
+        data = json_job.start_json(file_name)
+        handler = json_job
+    elif file_json_xml == 'xml':
+        file_name = 'data.xml'
+        data = xml_job.start_xml(file_name)
+        handler = xml_job
+    
+    key = ''
+    print('Список имееющихся функций:')
+    while key != '5':
+        print('1. Взять книгу для чтения в зале.')
+        print('2. Взять книгу для чтения домой.')
+        print('3. Удалить свою историю.')
+        print('4. Читать книгу в литературном клубе.')
+        print('5. Выйти в меню.')
+        flag = False
+        while flag != True:
+            key = input('Введите 1, 2, 3, 4 или 5: ')
+            try:
+                if key != '1' and key != '2' and key != '3' and key != '4' and key != '5':
+                    raise Invalid_Key_1_2("Просим прощения, но неправильный ввод. Просим следовать инстуркции!")
+                else:
+                    flag = True
+            except Invalid_Key_1_2 as e:
+                print(f"Ошибка: {e}")
+
+        if key == '1':
+            if ID[0] == 'H':
+                handler.add_human(data, list[index])
+            elif ID[0] == 'R':
+                handler.add_reader(data, list[index])
+            else:
+                print('Вы не можете пользоваться этой функцией.')
+
+            if file_json_xml == 'json':
+                handler.save_json(data, file_name)
+            else:
+                handler.save_to_xml(data, 'data.xml')
+        if key == '2':
+            if ID[0] == 'R':
+                handler.add_reader_1(data, list[index])
+            else:
+                print('Вы не можете пользоваться этой функцией.')
+
+            if file_json_xml == 'json':
+                handler.save_json(data, file_name)
+            else:
+                handler.save_to_xml(data, 'data.xml')
+        if key == '3':    
+            if ID[0] == 'H':
+                handler.delete_human(data, ID)
+            elif ID[0] == 'R':
+                handler.delete_reader(data, ID)
+            else:
+                print('Вы не можете пользоваться этой функцией.')
+
+            if file_json_xml == 'json':
+                handler.save_json(data, file_name)
+            else:
+                handler.save_to_xml(data, 'data.xml')
+        if key == '4':
+            
+
+
+            if file_json_xml == 'json':
+                handler.save_json(data, file_name)
+            else:
+                handler.save_to_xml(data, 'data.xml')
+
+def file_name_xml_json():
     print("Выберите вид файла, где будет храниться Ваша история, а именно json или xml.")
     file_json_xml = ''
     flag = False
@@ -91,45 +108,8 @@ def Human_job(ID, list_Human):
                 flag = True
         except Invalid_Key_1_2 as e:
             print(f"Ошибка: {e}")
-
-    if file_json_xml == 'json':
-        file_name = 'data.json'
-        data = json_job.start_json(file_name)
-        handler = json_job
-    elif file_json_xml == 'xml':
-        file_name = 'data.xml'
-        data = xml_job.start_xml(file_name)
-        handler = xml_job
     
-    key = ''
-    print('Гость имеет такие функции:')
-    while key != '3':
-        print('1. Взять книгу для чтения в зале.')
-        print('2. Удалить свою историю.')
-        print('3. Выйти в меню.')
-        flag = False
-        while flag != True:
-            key = input('Введите 1, 2 или 3: ')
-            try:
-                if key != '1' and key != '2' and key != '3':
-                    raise Invalid_Key_1_2("Просим прощения, но неправильный ввод. Просим следовать инстуркции!")
-                else:
-                    flag = True
-            except Invalid_Key_1_2 as e:
-                print(f"Ошибка: {e}")
-
-        if key == '1':
-            handler.add_human(data, list_Human[index])
-            if file_json_xml == 'json':
-                handler.save_json(data, file_name)
-            else:
-                handler.save_to_xml(data, 'data.xml')
-        if key == '2':
-            handler.delete_human(data, ID)
-            if file_json_xml == 'json':
-                handler.save_json(data, file_name)
-            else:
-                handler.save_to_xml(data, 'data.xml')
+    return file_json_xml
 
 def main():
     main_human = ''
@@ -183,7 +163,7 @@ def main():
                     name = input('Введите своё имя: ')
                     list_Human.append(Human(name, ID))
 
-                    Human_job(ID, list_Human)
+                    job(ID, list_Human)
 
                     flag = False
                 elif key == 'Return':
@@ -197,7 +177,7 @@ def main():
                         index = 'H_'
                         index += input('Введите номер ID: H_')
                         
-                        Human_job(index, list_Human)
+                        job(index, list_Human)
 
                         flag = False
   
@@ -229,7 +209,7 @@ def main():
                     age = age_try()
                     list_Reader.append(Reader(name, ID, age))
 
-                    Reader_job(ID, list_Reader)
+                    job(ID, list_Reader)
 
                     flag = False
                 elif key == 'Return':
@@ -243,7 +223,7 @@ def main():
                         index = 'R_'
                         index += input('Введите номер ID: R_')
                         
-                        Reader_job(index, list_Reader)
+                        job(index, list_Reader)
 
                         flag = False
   

@@ -15,3 +15,11 @@ def add_human(data, human):
 def delete_human(data, ID):
     data["humans"] = [human for human in data["humans"] if human['ID'] != ID]  
 
+def add_reader(data, reader):
+    data['readers'].append(reader.back_to_file())
+
+def add_reader_1(data, reader):
+    data['readers'].append(reader.back_to_file_1())
+
+def delete_reader(data, ID):
+    data["readers"] = [reader for reader in data["readers"] if reader['ID'] != ID]  
