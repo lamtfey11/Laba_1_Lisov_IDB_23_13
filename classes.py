@@ -3,12 +3,13 @@ class Human:
     def __init__(self, name, ID):
         self.name = name
         self.ID = ID
+        self.status = 'Взял книгу в зале.'
 
     def back_to_file(self):
         return {
             "name": self.name,
-            "ID": self.ID
-            #оставить статус
+            "ID": self.ID,
+            "Взял книгу в зале.": self.status
         }
 
 #читатель
@@ -16,6 +17,8 @@ class Reader(Human):
     def __init__(self, name, ID, age):
         super().__init__(name, ID)  
         self.age = age
+        
+
 
     def back_to_file(self):
         reader = super().back_to_file() 

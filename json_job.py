@@ -12,6 +12,6 @@ def start_json(file_name):
 def add_human(data, human):
     data['humans'].append(human.back_to_file())
 
-def delete_human(data, hu):
-    data["humans"] = [human for human in data["humans"] if human['hu'] != hu]  
+def delete_human(data, ID):
+    data["humans"] = [human for human in data["humans"] if human['ID'] != ID]  
 

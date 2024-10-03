@@ -40,29 +40,34 @@ def start_xml(file_name):
         return {"humans": [], "readers": []}
 
     data = {"humans": [], "readers": []}
-    
-    for human in root.find('humans'):
-        data_h = {}
-        for i in human:
-            data_h[i.tag] = i.text
-        data_h['humans'].append(data_h)
 
-    for reader in root.find('readers'):
-        data_r = {}
-        for i in reader:
-            data_r[i.tag] = i.text
-        data_r['readers'].append(data_r)
+    humans = root.find('humans')
+    if humans is not None:
+        for human in humans:
+            data_h = {}
+            for elem in human:
+                data_h[elem.tag] = elem.text
+            data['humans'].append(data_h)
+
+    readers = root.find('readers')
+    if readers is not None:
+        for reader in readers:
+            data_r = {}
+            for elem in reader:
+                data_r[elem.tag] = elem.text
+            data['readers'].append(data_r)
 
     return data
 
+
 def add_human(data, human):
-    data['humans'].append(human.back_to_file())
+    data['humans'].append(human.back_to_file())  
+    save_to_xml(data, 'data.xml')  
 
 def delete_human(data, hu):
     upd = []
     for human in data['humans']:
-        if human['hu'] != hu:
+        if human['ID'] != hu:  
             upd.append(human)
     
     data['humans'] = upd
-

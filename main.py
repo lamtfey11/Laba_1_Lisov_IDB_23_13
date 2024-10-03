@@ -54,11 +54,15 @@ def Human_job(ID, list_Human):
             if file_json_xml == 'json':
                 handler.save_json(data, file_name)
             else:
-                handler.save_to_xml(data, file_name)
-        elif key == '2':#НЕ РАБОТАЕТТТТТТ!!!!
+
+                handler.save_to_xml(data, 'data.xml')
+        if key == '2':
             handler.delete_human(data, ID)
-            handler.save_json(data, file_name)
-        
+            if file_json_xml == 'json':
+                handler.save_json(data, file_name)
+            else:
+                handler.save_to_xml(data, 'data.xml')
+
 
 
     
