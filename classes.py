@@ -99,3 +99,16 @@ class Club_Member(Human):
             "club": self.club
         })
         return club_m
+    
+class Computer_Hool(Human):
+    def __init__(self, name, ID, age):
+        super().__init__(name, ID)  
+        self.age = age
+
+    def back_to_file(self):
+        self.status = 'Computer_Hool'
+        computer_h = super().back_to_file() 
+        computer_h.update({
+            "age": self.age
+        })
+        return computer_h

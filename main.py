@@ -1,12 +1,12 @@
 import xml_job
 import json_job
-from classes import Human, Reader, School_Сhild, Student, Club_Member
+from classes import Human, Reader, School_Сhild, Student, Club_Member, Computer_Hool
 
 class Invalid_Key_1_2(Exception):
     pass
 
 def age_try(ID):
-    if ID[0] == 'R' or ID[0] == 'M':
+    if ID[0] == 'R' or ID[0] == 'M' or ID[0] == 'O':
         flag = False
         while flag != True:
             age = int(input('Введите свой возраст: '))
@@ -58,17 +58,18 @@ def job(ID, list):
     
     key = ''
     print('Список имееющихся функций:')
-    while key != '5':
+    while key != '6':
         print('1. Взять книгу для чтения в зале.')
         print('2. Взять книгу для чтения домой.')
         print('3. Удалить свою историю.')
         print('4. Читать книгу в литературном клубе.')
-        print('5. Выйти в меню.')
+        print('5. Заниматься за компьтером в комп. зале.')
+        print('6. Выйти в меню.')
         flag = False
         while flag != True:
-            key = input('Введите 1, 2, 3, 4 или 5: ')
+            key = input('Введите 1, 2, 3, 4, 5 или 6: ')
             try:
-                if key != '1' and key != '2' and key != '3' and key != '4' and key != '5':
+                if key != '1' and key != '2' and key != '3' and key != '4' and key != '5' and key != '6':
                     raise Invalid_Key_1_2("Просим прощения, но неправильный ввод. Просим следовать инстуркции!")
                 else:
                     flag = True
@@ -116,6 +117,8 @@ def job(ID, list):
                 handler.delete_student(data, ID)
             elif ID[0] == 'M':
                 handler.delete_club(data, ID)
+            elif ID[0] == 'O':
+                handler.delete_computer(data, ID)
 
             if file_json_xml == 'json':
                 handler.save_json(data, file_name)
@@ -131,6 +134,17 @@ def job(ID, list):
                 handler.save_json(data, file_name)
             else:
                 handler.save_to_xml(data, 'data.xml')
+        if key == '5':
+            if ID[0] == 'O':
+                handler.add_computer(data, list[index])
+            else:
+                print('Вы не можете пользоваться этой функцией.')
+
+            if file_json_xml == 'json':
+                handler.save_json(data, file_name)
+            else:
+                handler.save_to_xml(data, 'data.xml')
+
 
 def file_name_xml_json():
     print("Выберите вид файла, где будет храниться Ваша история, а именно json или xml.")
@@ -157,20 +171,23 @@ def main():
     count_3 = -1
     count_4 = -1
     count_5 = -1
+    count_6 = -1
     list_Human = []
     list_Reader = []
     list_School_Сhild = []
     list_Student = []
     list_Club_Member = []
+    list_Computer_Holl = []
 
-    while main_human != '6':
+    while main_human != '7':
         print('Выбирите один из предоставленных вариантов, написав номер действия:')
         print('1. Гость(человек с ID на H_). Вы сможете брать книгу в зале.')
         print('2. Читатель(человек с ID на R_). Вы сможете брать книги в зале и дома.')
         print('3. Ученик школы(человек с ID  на C_). Вам должно быть от 6 до 18 лет и вы сможете брать книги с таким возрастным ограничением.')
         print('4. Студент вуза(человек с ID  на S_). Вам должно быть от 18 до 27 лет и вы сможете брать книги с таким возрастным ограничением.')
         print('5. Вы хотите быть участником литературного клуба(человек с ID M_). Вы работаете только в зале.')
-        print('6. Выход')
+        print('6. Вы хотите работать в компьютеном зале(человек с ID O_). Вы работаете только в зале.')
+        print('7. Выход')
         
         main_human = input('Введите номер действия: ').strip()
 
@@ -409,6 +426,53 @@ def main():
                         flag = False
 
         elif main_human == '6':
+            print('Напишите "New", если хотите создать клубный аккаунт.', 'Напишите "Return", если хотите вернуться в старый аккаунт.', sep = '\n')
+            
+            key = ''
+            flag = False
+            
+            while flag != True:
+                key = input('Ввод: ')
+                
+                try:
+                    if key != 'New' and key != 'Return':
+                        raise Invalid_Key_1_2("Просим прощения, но неправильный ввод. Просим следовать инстуркции, позже мы решим проблему.")
+                    else:
+                        flag = True
+                except Invalid_Key_1_2 as e:
+                    print(f"Ошибка: {e}")
+            
+            while flag != False:
+                if key == 'New':
+                    print('Вы решили создать новый аккаунт.')
+                    
+                    count_6 += 1
+                    ID = 'O_' + str(count_6)
+                    print(f'Ваш ID: {ID}')
+                    name = input('Введите своё имя: ')
+                    age = age_try(ID)
+
+                    list_Computer_Holl.append(Computer_Hool(name, ID, age))
+
+                    job(ID, list_Computer_Holl)
+
+                    flag = False
+                elif key == 'Return':
+                    print('Вы решили вернуться в старый аккаунт.')
+                    if len(list_Computer_Holl) == 0:
+                        key = 'New'
+                        print('Сейчас вы будете создавать новый аакаунт, так как старых ещё не было.')
+                    else:
+                        for i in range(len(list_Computer_Holl)):
+                            print(list_Computer_Holl[i].ID, sep = ' ')
+                        index = 'O_'
+                        index += input('Введите номер ID: O_')
+                        
+                        job(index, list_Computer_Holl)
+
+                        flag = False
+
+        elif main_human == '7':
             return ''
         else:
             print('Просим извинения, но такого номера действия не существует.')

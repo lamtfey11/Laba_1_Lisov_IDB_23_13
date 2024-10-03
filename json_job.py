@@ -47,3 +47,9 @@ def add_club(data, club):
 
 def delete_club(data, ID):
     data["clubs"] = [club for club in data["clubs"] if club['ID'] != ID] 
+
+def add_computer(data, computer):
+    data['computers'].append(computer.back_to_file())
+
+def delete_computer(data, ID):
+    data["computers"] = [computer for computer in data["computers"] if computer['ID'] != ID] 
