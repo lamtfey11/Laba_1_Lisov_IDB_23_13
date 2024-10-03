@@ -409,7 +409,7 @@ def main():
                         flag = False
 
         elif main_human == '6':
-            return 'end'
+            return ''
         else:
             print('Просим извинения, но такого номера действия не существует.')
 
