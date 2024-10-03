@@ -9,7 +9,7 @@ class Human:
         return {
             "name": self.name,
             "ID": self.ID,
-            "Взял книгу в зале.": self.status
+            "Book_in_Holl.": self.status
         }
 
 #читатель

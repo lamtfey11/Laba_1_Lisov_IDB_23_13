@@ -54,7 +54,6 @@ def Human_job(ID, list_Human):
             if file_json_xml == 'json':
                 handler.save_json(data, file_name)
             else:
-
                 handler.save_to_xml(data, 'data.xml')
         if key == '2':
             handler.delete_human(data, ID)
@@ -138,8 +137,51 @@ def main():
 
                         flag = False
   
-        #elif main_human == '2':
+        elif main_human == '2':
+            print('Напишите "New", если хотите создать новый аккаунт читателя.', 'Напишите "Return", если хотите вернуться в старый аккаунт.', sep = '\n')
             
+            key = ''
+            flag = False
+            
+            while flag != True:
+                key = input('Ввод: ')
+                
+                try:
+                    if key != 'New' and key != 'Return':
+                        raise Invalid_Key_1_2("Просим прощения, но неправильный ввод. Просим следовать инстуркции, позже мы решим проблему.")
+                    else:
+                        flag = True
+                except Invalid_Key_1_2 as e:
+                    print(f"Ошибка: {e}")
+            
+            while flag != False:
+                if key == 'New':
+                    print('Вы решили создать новый аккаунт.')
+
+                    count_1 += 1
+                    ID = 'H_' + str(count_1)
+                    print(f'Ваш ID: {ID}')
+                    name = input('Введите своё имя: ')
+                    list_Human.append(Human(name, ID))
+
+                    Human_job(ID, list_Human)
+
+                    flag = False
+                elif key == 'Return':
+                    print('Вы решили вернуться в старый аккаунт.')
+                    if len(list_Human) == 0:
+                        key = 'New'
+                        print('Сейчас вы будете создавать новый аакаунт, так как старых ещё не было.')
+                    else:
+                        for i in range(len(list_Human)):
+                            print(list_Human[i].ID, sep = ' ')
+                        index = 'H_'
+                        index += input('Введите номер ID: H_')
+                        
+                        Human_job(index, list_Human)
+
+                        flag = False
+  
         #elif main_human == '3':
 
         #elif main_human == '4':

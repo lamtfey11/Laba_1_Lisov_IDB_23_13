@@ -4,6 +4,12 @@
     <human>
       <name>Beta_test</name>
       <ID>H_-1</ID>
+      <status>Book</status>
+    </human>
+    <human>
+      <name>fdjgfjjkg</name>
+      <ID>H_0</ID>
+      <Book_in_Holl.>None</Book_in_Holl.>
     </human>
   </humans>
 </data>
