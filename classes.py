@@ -3,7 +3,7 @@ class Human:
     def __init__(self, name, ID):
         self.name = name
         self.ID = ID
-        self.status = 'Взял книгу в зале.'
+        self.status = ''
 
     def back_to_file(self):
         return {

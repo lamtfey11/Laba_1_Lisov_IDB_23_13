@@ -37,9 +37,9 @@ def start_xml(file_name):
         tree = ET.parse(file_name)
         root = tree.getroot()
     except FileNotFoundError:
-        return {"humans": [], "readers": []}
+        return {"humans": []}
 
-    data = {"humans": [], "readers": []}
+    data = {"humans": []}
 
     humans = root.find('humans')
     if humans is not None:
@@ -48,14 +48,6 @@ def start_xml(file_name):
             for elem in human:
                 data_h[elem.tag] = elem.text
             data['humans'].append(data_h)
-
-    readers = root.find('readers')
-    if readers is not None:
-        for reader in readers:
-            data_r = {}
-            for elem in reader:
-                data_r[elem.tag] = elem.text
-            data['readers'].append(data_r)
 
     return data
 
