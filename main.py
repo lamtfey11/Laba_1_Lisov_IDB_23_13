@@ -28,6 +28,17 @@ def age_try(ID):
                     flag = True
             except Exception as e:
                 print(f"Ошибка: {e}")
+    elif ID[0] == 'S':
+        flag = False
+        while flag != True:
+            age = int(input('Введите свой возраст: '))
+            try:
+                if age < 19 or age > 27:
+                    print('Студентом считается человек от 18 до 27.')
+                else:
+                    flag = True
+            except Exception as e:
+                print(f"Ошибка: {e}")
     
     return age
 
@@ -71,6 +82,8 @@ def job(ID, list):
                 handler.add_reader(data, list[index])
             elif ID[0] == 'C':
                 handler.add_school(data, list[index])
+            elif ID[0] == 'S':
+                handler.add_student(data, list[index])
             else:
                 print('Вы не можете пользоваться этой функцией.')
 
@@ -83,6 +96,8 @@ def job(ID, list):
                 handler.add_reader_1(data, list[index])
             elif ID[0] == 'C':
                 handler.add_school_1(data, list[index])
+            elif ID[0] == 'S':
+                handler.add_student_1(data, list[index])
             else:
                 print('Вы не можете пользоваться этой функцией.')
 
@@ -97,8 +112,8 @@ def job(ID, list):
                 handler.delete_reader(data, ID)
             elif ID[0] == 'C':
                 handler.delete_school(data, ID)
-            else:
-                print('Вы не можете пользоваться этой функцией.')
+            elif ID[0] == 'S':
+                handler.delete_student(data, ID)
 
             if file_json_xml == 'json':
                 handler.save_json(data, file_name)
@@ -289,7 +304,7 @@ def main():
                         index = 'C_'
                         index += input('Введите номер ID: C_')
                         
-                        job(index, list_Reader)
+                        job(index, list_School_Сhild)
 
                         flag = False
 
@@ -318,26 +333,26 @@ def main():
                     ID = 'S_' + str(count_4)
                     print(f'Ваш ID: {ID}')
                     name = input('Введите своё имя: ')
-                    #####################
+                    
                     age = age_try(ID)
-                    school = input('Введите место учёбы(школу): ')
-                    list_School_Сhild.append(School_Сhild(name, ID, age, school))
+                    university = input('Введите место учёбы(вуз): ')
+                    list_Student.append(School_Сhild(name, ID, age, university))
 
-                    job(ID, list_School_Сhild)
+                    job(ID, list_Student)
 
                     flag = False
                 elif key == 'Return':
                     print('Вы решили вернуться в старый аккаунт.')
-                    if len(list_School_Сhild) == 0:
+                    if len(list_Student) == 0:
                         key = 'New'
                         print('Сейчас вы будете создавать новый аакаунт, так как старых ещё не было.')
                     else:
-                        for i in range(len(list_School_Сhild)):
-                            print(list_School_Сhild[i].ID, sep = ' ')
-                        index = 'C_'
-                        index += input('Введите номер ID: C_')
+                        for i in range(len(list_Student)):
+                            print(list_Student[i].ID, sep = ' ')
+                        index = 'S_'
+                        index += input('Введите номер ID: S_')
                         
-                        job(index, list_Reader)
+                        job(index, list_Student)
 
                         flag = False
 
