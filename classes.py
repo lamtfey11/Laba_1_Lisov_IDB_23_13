@@ -121,7 +121,7 @@ class Gift(Human):
         self.book = ''
 
     def back_to_file(self):
-        self.status = 'GIGT'
+        self.status = 'GIFT'
         computer_g = super().back_to_file() 
         computer_g.update({
             "Book": self.book
@@ -138,3 +138,12 @@ class Bibliotekar():
 
     def get_password(self):
         return self.password
+    
+class Book():
+    def __init__(self, name):
+        self.name = name
+    
+    def back_to_file(self):
+        return {
+            "name": self.name,
+        }

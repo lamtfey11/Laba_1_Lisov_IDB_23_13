@@ -1,6 +1,6 @@
 import xml_job
 import json_job
-from classes import Human, Reader, School_Сhild, Student, Club_Member, Computer_Hool, Bibliotekar, Gift
+from classes import Human, Reader, School_Сhild, Student, Club_Member, Computer_Hool, Bibliotekar, Gift, Book
 
 class Invalid_Key_1_2(Exception):
     pass
@@ -205,6 +205,7 @@ def main():
 
     while main_human != '9':
         print('Выбирите один из предоставленных вариантов, написав номер действия:')
+        print('0. Добавьте в список свою книгу. Мы обязательно её включим в нашу библиотеку.')
         print('1. Гость(человек с ID на H_). Вы сможете брать книгу в зале.')
         print('2. Читатель(человек с ID на R_). Вы сможете брать книги в зале и дома.')
         print('3. Ученик школы(человек с ID  на C_). Вам должно быть от 6 до 18 лет и вы сможете брать книги с таким возрастным ограничением.')
@@ -217,7 +218,28 @@ def main():
         
         main_human = input('Введите номер действия: ').strip()
 
-        if main_human == '1':
+        if main_human == '0':
+            name = input('Введи название книги: ')
+            book_0 = Book(name)
+
+            file_json_xml = file_name_xml_json()
+
+            if file_json_xml == 'json':
+                file_name = 'data.json'
+                data = json_job.start_json(file_name)
+                handler = json_job
+            elif file_json_xml == 'xml':
+                file_name = 'data.xml'
+                data = xml_job.start_xml(file_name)
+                handler = xml_job
+            
+            handler.add_BOOK(data, book_0)
+            if file_json_xml == 'json':
+                handler.save_json(data, file_name)
+            else:
+                handler.save_to_xml(data, 'data.xml')
+
+        elif main_human == '1':
             print('Напишите "New", если хотите создать новый гостевой аккаунт.', 
                   'Напишите "Return", если хотите вернуться в старый гостевой аккаунт.', sep = '\n')
             
@@ -592,3 +614,4 @@ while main_on_off != 'end':
     main_on_off = input('Введите "Enter" или "End": ').lower()
     if main_on_off == 'enter':
         main_on_off = main()
+

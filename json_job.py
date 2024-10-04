@@ -58,4 +58,8 @@ def add_gift(data, gift):
     data['gifts'].append(gift.back_to_file())
 
 def delete_gift(data, ID):
-    data["gifts"] = [gift for gift in data["gifts"] if gift['ID'] != ID]  
+    data["gifts"] = [gift for gift in data["gifts"] if gift['ID'] != ID] 
+
+def add_BOOK(data, BOOK):
+    data['BOOKS'].append(BOOK.back_to_file())
+
