@@ -112,3 +112,10 @@ class Computer_Hool(Human):
             "age": self.age
         })
         return computer_h
+    
+class Bibliotekar():
+    def __init__(self):
+        self.password = '1234'
+
+    def get_password(self):
+        return self.password

@@ -52,4 +52,4 @@ def add_computer(data, computer):
     data['computers'].append(computer.back_to_file())
 
 def delete_computer(data, ID):
-    data["computers"] = [computer for computer in data["computers"] if computer['ID'] != ID] 
+    data["computers"] = [computer for computer in data["computers"] if computer['ID'] != ID]

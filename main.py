@@ -1,6 +1,6 @@
 import xml_job
 import json_job
-from classes import Human, Reader, School_Сhild, Student, Club_Member, Computer_Hool
+from classes import Human, Reader, School_Сhild, Student, Club_Member, Computer_Hool, Bibliotekar
 
 class Invalid_Key_1_2(Exception):
     pass
@@ -11,8 +11,8 @@ def age_try(ID):
         while flag != True:
             age = int(input('Введите свой возраст: '))
             try:
-                if 4 > age:
-                    print('Вам меньше трёх лет.')
+                if 18 > age:
+                    print('Вам меньше 18-ти лет.')
                 else:
                     flag = True
             except Exception as e:
@@ -59,6 +59,7 @@ def job(ID, list):
     key = ''
     print('Список имееющихся функций:')
     while key != '6':
+        id_b = ''
         print('1. Взять книгу для чтения в зале.')
         print('2. Взять книгу для чтения домой.')
         print('3. Удалить свою историю.')
@@ -106,7 +107,10 @@ def job(ID, list):
                 handler.save_json(data, file_name)
             else:
                 handler.save_to_xml(data, 'data.xml')
-        if key == '3':    
+        if key == '3':   
+            if ID[0] == 'B':
+                id_b = ID
+                ID = input('Введите, какой ID вы хотите удалить: ')
             if ID[0] == 'H':
                 handler.delete_human(data, ID)
             elif ID[0] == 'R':
@@ -119,6 +123,9 @@ def job(ID, list):
                 handler.delete_club(data, ID)
             elif ID[0] == 'O':
                 handler.delete_computer(data, ID)
+            
+            ID = id_b
+            
 
             if file_json_xml == 'json':
                 handler.save_json(data, file_name)
@@ -178,8 +185,10 @@ def main():
     list_Student = []
     list_Club_Member = []
     list_Computer_Holl = []
+    list_Bibliotekar = []
+    
 
-    while main_human != '7':
+    while main_human != '8':
         print('Выбирите один из предоставленных вариантов, написав номер действия:')
         print('1. Гость(человек с ID на H_). Вы сможете брать книгу в зале.')
         print('2. Читатель(человек с ID на R_). Вы сможете брать книги в зале и дома.')
@@ -187,7 +196,8 @@ def main():
         print('4. Студент вуза(человек с ID  на S_). Вам должно быть от 18 до 27 лет и вы сможете брать книги с таким возрастным ограничением.')
         print('5. Вы хотите быть участником литературного клуба(человек с ID M_). Вы работаете только в зале.')
         print('6. Вы хотите работать в компьютеном зале(человек с ID O_). Вы работаете только в зале.')
-        print('7. Выход')
+        print('7. Зайти под аккаунт библиотекаря(человек с ID B_0).')
+        print('8. Выход')
         
         main_human = input('Введите номер действия: ').strip()
 
@@ -471,8 +481,31 @@ def main():
                         job(index, list_Computer_Holl)
 
                         flag = False
-
         elif main_human == '7':
+            print('Напишите пароль для входа в аккаунт библиотекаря.', sep = '\n')
+            
+            flag = True
+            key = ''
+            b = Bibliotekar()
+
+            while flag != False:
+                key = input('Пароль: ')
+                if key == b.get_password():
+                    print('Вы зашли в аккаунт аккаунт.')
+                    
+                    ID = 'B_0'
+                    print(f'Ваш ID: {ID}')
+                    list_Bibliotekar.append(b)
+
+                    job(ID, list_Bibliotekar)
+
+                    flag = False
+                else:
+                    print('Вы ввели направильный пароль.')
+                    print('Вы сейчас будете в главном меню.')
+                    flag = False
+
+        elif main_human == '8':
             return ''
         else:
             print('Просим извинения, но такого номера действия не существует.')
