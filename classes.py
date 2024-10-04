@@ -99,7 +99,8 @@ class Club_Member(Human):
             "club": self.club
         })
         return club_m
-    
+
+#компьтерный зал
 class Computer_Hool(Human):
     def __init__(self, name, ID, age):
         super().__init__(name, ID)  
@@ -112,7 +113,8 @@ class Computer_Hool(Human):
             "age": self.age
         })
         return computer_h
-    
+
+#aккаунт библиотекаря    
 class Bibliotekar():
     def __init__(self):
         self.password = '1234'
