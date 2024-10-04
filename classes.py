@@ -114,6 +114,23 @@ class Computer_Hool(Human):
         })
         return computer_h
 
+#подарочный аккаунт
+class Gift(Human):
+    def __init__(self, name, ID):
+        super().__init__(name, ID)  
+        self.book = ''
+
+    def back_to_file(self):
+        self.status = 'GIGT'
+        computer_g = super().back_to_file() 
+        computer_g.update({
+            "Book": self.book
+        })
+        return computer_g
+    
+    def set_book(self, book):
+        self.book = book
+
 #aккаунт библиотекаря    
 class Bibliotekar():
     def __init__(self):

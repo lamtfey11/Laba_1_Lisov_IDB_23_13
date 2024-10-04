@@ -1,6 +1,6 @@
 import xml_job
 import json_job
-from classes import Human, Reader, School_Сhild, Student, Club_Member, Computer_Hool, Bibliotekar
+from classes import Human, Reader, School_Сhild, Student, Club_Member, Computer_Hool, Bibliotekar, Gift
 
 class Invalid_Key_1_2(Exception):
     pass
@@ -58,19 +58,20 @@ def job(ID, list):
     
     key = ''
     print('Список имееющихся функций:')
-    while key != '6':
+    while key != '7':
         id_b = ''
         print('1. Взять книгу для чтения в зале.')
         print('2. Взять книгу для чтения домой.')
         print('3. Удалить свою историю.')
         print('4. Читать книгу в литературном клубе.')
         print('5. Заниматься за компьтером в комп. зале.')
-        print('6. Выйти в меню.')
+        print('6. Взять книгу в подарок.')
+        print('7. Выйти в меню.')
         flag = False
         while flag != True:
-            key = input('Введите 1, 2, 3, 4, 5 или 6: ')
+            key = input('Введите 1, 2, 3, 4, 5, 6, 7: ')
             try:
-                if key != '1' and key != '2' and key != '3' and key != '4' and key != '5' and key != '6':
+                if key != '1' and key != '2' and key != '3' and key != '4' and key != '5' and key != '6' and key != '7':
                     raise Invalid_Key_1_2("Просим прощения, но неправильный ввод. Просим следовать инстуркции!")
                 else:
                     flag = True
@@ -123,10 +124,11 @@ def job(ID, list):
                 handler.delete_club(data, ID)
             elif ID[0] == 'O':
                 handler.delete_computer(data, ID)
+            elif ID[0] == 'G':
+                handler.delete_gift(data, ID)
             
             ID = id_b
             
-
             if file_json_xml == 'json':
                 handler.save_json(data, file_name)
             else:
@@ -147,6 +149,17 @@ def job(ID, list):
             else:
                 print('Вы не можете пользоваться этой функцией.')
 
+            if file_json_xml == 'json':
+                handler.save_json(data, file_name)
+            else:
+                handler.save_to_xml(data, 'data.xml')
+        if key == '6':
+            if ID[0] == 'G':
+                list[index].set_book(input('Введите книгу для подарка: '))
+                handler.add_gift(data, list[index])
+            else:
+                print('Вы не можете пользоваться этой функцией.')
+            
             if file_json_xml == 'json':
                 handler.save_json(data, file_name)
             else:
@@ -179,6 +192,7 @@ def main():
     count_4 = -1
     count_5 = -1
     count_6 = -1
+    count_8 = -1
     list_Human = []
     list_Reader = []
     list_School_Сhild = []
@@ -186,9 +200,10 @@ def main():
     list_Club_Member = []
     list_Computer_Holl = []
     list_Bibliotekar = []
+    list_Gift = []
     
 
-    while main_human != '8':
+    while main_human != '9':
         print('Выбирите один из предоставленных вариантов, написав номер действия:')
         print('1. Гость(человек с ID на H_). Вы сможете брать книгу в зале.')
         print('2. Читатель(человек с ID на R_). Вы сможете брать книги в зале и дома.')
@@ -197,12 +212,14 @@ def main():
         print('5. Вы хотите быть участником литературного клуба(человек с ID M_). Вы работаете только в зале.')
         print('6. Вы хотите работать в компьютеном зале(человек с ID O_). Вы работаете только в зале.')
         print('7. Зайти под аккаунт библиотекаря(человек с ID B_0).')
-        print('8. Выход')
+        print('8. Подарочный аккаунт(человек с ID G_). Вы можете получать любые книги бесплатно.')
+        print('9. Выход')
         
         main_human = input('Введите номер действия: ').strip()
 
         if main_human == '1':
-            print('Напишите "New", если хотите создать новый гостевой аккаунт.', 'Напишите "Return", если хотите вернуться в старый гостевой аккаунт.', sep = '\n')
+            print('Напишите "New", если хотите создать новый гостевой аккаунт.', 
+                  'Напишите "Return", если хотите вернуться в старый гостевой аккаунт.', sep = '\n')
             
             key = ''
             flag = False
@@ -247,7 +264,8 @@ def main():
                         flag = False
   
         elif main_human == '2':
-            print('Напишите "New", если хотите создать новый аккаунт читателя.', 'Напишите "Return", если хотите вернуться в старый аккаунт.', sep = '\n')
+            print('Напишите "New", если хотите создать новый аккаунт читателя.', 
+                  'Напишите "Return", если хотите вернуться в старый аккаунт.', sep = '\n')
             
             key = ''
             flag = False
@@ -293,7 +311,8 @@ def main():
                         flag = False
   
         elif main_human == '3':
-            print('Напишите "New", если хотите создать школьный аккаунт.', 'Напишите "Return", если хотите вернуться в старый аккаунт.', sep = '\n')
+            print('Напишите "New", если хотите создать школьный аккаунт.', 
+                  'Напишите "Return", если хотите вернуться в старый аккаунт.', sep = '\n')
             
             key = ''
             flag = False
@@ -340,7 +359,8 @@ def main():
                         flag = False
 
         elif main_human == '4':
-            print('Напишите "New", если хотите создать студенческий аккаунт.', 'Напишите "Return", если хотите вернуться в старый аккаунт.', sep = '\n')
+            print('Напишите "New", если хотите создать студенческий аккаунт.', 
+                  'Напишите "Return", если хотите вернуться в старый аккаунт.', sep = '\n')
             
             key = ''
             flag = False
@@ -388,7 +408,8 @@ def main():
                         flag = False
 
         elif main_human == '5':
-            print('Напишите "New", если хотите создать клубный аккаунт.', 'Напишите "Return", если хотите вернуться в старый аккаунт.', sep = '\n')
+            print('Напишите "New", если хотите создать клубный аккаунт.', 
+                  'Напишите "Return", если хотите вернуться в старый аккаунт.', sep = '\n')
             
             key = ''
             flag = False
@@ -436,7 +457,8 @@ def main():
                         flag = False
 
         elif main_human == '6':
-            print('Напишите "New", если хотите создать клубный аккаунт.', 'Напишите "Return", если хотите вернуться в старый аккаунт.', sep = '\n')
+            print('Напишите "New", если хотите создать клубный аккаунт.', 
+                  'Напишите "Return", если хотите вернуться в старый аккаунт.', sep = '\n')
             
             key = ''
             flag = False
@@ -506,13 +528,65 @@ def main():
                     flag = False
 
         elif main_human == '8':
+            print('Напишите "New", если хотите создать подарочный аккаунт.', 
+                  'Напишите "Return", если хотите вернуться в старый аккаунт.', sep = '\n')
+            
+            key = ''
+            flag = False
+            
+            while flag != True:
+                key = input('Ввод: ')
+                
+                try:
+                    if key != 'New' and key != 'Return':
+                        raise Invalid_Key_1_2("Просим прощения, но неправильный ввод. Просим следовать инстуркции, позже мы решим проблему.")
+                    else:
+                        flag = True
+                except Invalid_Key_1_2 as e:
+                    print(f"Ошибка: {e}")
+            
+            while flag != False:
+                if key == 'New':
+                    print('Вы решили создать новый аккаунт.')
+                    
+                    count_8 += 1
+                    ID = 'G_' + str(count_8)
+                    print(f'Ваш ID: {ID}')
+                    name = input('Введите своё имя: ')
+                    
+
+                    list_Gift.append(Gift(name, ID))
+
+                    job(ID, list_Gift)
+
+                    flag = False
+                elif key == 'Return':
+                    print('Вы решили вернуться в старый аккаунт.')
+                    if len(list_Gift) == 0:
+                        key = 'New'
+                        print('Сейчас вы будете создавать новый аакаунт, так как старых ещё не было.')
+                    else:
+                        for i in range(len(list_Gift)):
+                            print(list_Gift[i].ID, sep = ' ')
+                        index = 'G_'
+                        index += input('Введите номер ID: G_')
+                        
+                        job(index, list_Gift)
+
+                        flag = False
+
+        elif main_human == '9':
             return ''
         else:
             print('Просим извинения, но такого номера действия не существует.')
 
 
 
-print('Здраствуйте! Это приложение для библиотеки имени Кучуева Вадима Анатольевича.', 'Напишите "Enter", если Вы хотите воспользоваться нашим приложением.', 'Напишите "End", если хотите завершить приём.', 'При других вариантах Вы, к сожалению, не сможете воспользоваться нашим приложением.', 'Желаем Вам удачи!', sep = '\n')
+print('Здраствуйте! Это приложение для библиотеки имени Кучуева Вадима Анатольевича.', 
+      'Напишите "Enter", если Вы хотите воспользоваться нашим приложением.', 
+      'Напишите "End", если хотите завершить приём.', 
+      'При других вариантах Вы, к сожалению, не сможете воспользоваться нашим приложением.', 
+      'Желаем Вам удачи!', sep = '\n')
 main_on_off = ''
 while main_on_off != 'end':
     main_on_off = input('Введите "Enter" или "End": ').lower()

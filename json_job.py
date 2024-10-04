@@ -53,3 +53,9 @@ def add_computer(data, computer):
 
 def delete_computer(data, ID):
     data["computers"] = [computer for computer in data["computers"] if computer['ID'] != ID]
+
+def add_gift(data, gift):
+    data['gifts'].append(gift.back_to_file())
+
+def delete_gift(data, ID):
+    data["gifts"] = [gift for gift in data["gifts"] if gift['ID'] != ID]  

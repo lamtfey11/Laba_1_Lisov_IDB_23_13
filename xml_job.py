@@ -60,6 +60,13 @@ def save_to_xml(data, file_name):
             child = ET.SubElement(computer_element, key)
             child.text = str(value) 
 
+    gifts = ET.SubElement(root, 'gifts')
+    for gift in data['gifts']:
+        gift_element = ET.SubElement(gifts, 'gift')
+        for key, value in gift.items():
+            child = ET.SubElement(gift_element, key)
+            child.text = str(value) 
+
     indent(root)
 
     tree = ET.ElementTree(root)
@@ -70,9 +77,9 @@ def start_xml(file_name):
         tree = ET.parse(file_name)
         root = tree.getroot()
     except FileNotFoundError:
-        return {"humans": [], "readers": [], "schools": [], "student": [], "clubs": [], "computers": []}
+        return {"humans": [], "readers": [], "schools": [], "student": [], "clubs": [], "computers": [], "gifts": []}
 
-    data = {"humans": [], "readers": [], "schools": [], "students": [], "clubs": [], "computers": []}
+    data = {"humans": [], "readers": [], "schools": [], "students": [], "clubs": [], "computers": [], "gifts": []}
 
     humans = root.find('humans')
     if humans is not None:
@@ -120,7 +127,15 @@ def start_xml(file_name):
             data_H = {}
             for elem in computer:
                 data_H[elem.tag] = elem.text
-            data['computers'].append(data_H)        
+            data['computers'].append(data_H)  
+
+    gifts = root.find('gifts')
+    if gifts is not None:
+        for gift in gifts:
+            data_g = {}
+            for elem in gift:
+                data_g[elem.tag] = elem.text
+            data['gifts'].append(data_g)       
 
     return data
 
@@ -208,3 +223,15 @@ def delete_computer(data, ch):
             upd.append(computer)
     
     data['computers'] = upd
+
+def add_gift(data, gift):
+    data['gifts'].append(gift.back_to_file())  
+    save_to_xml(data, 'data.xml')  
+
+def delete_gift(data, g):
+    upd = []
+    for gift in data['gifts']:
+        if gift['ID'] != g:  
+            upd.append(gift)
+    
+    data['gifts'] = upd
